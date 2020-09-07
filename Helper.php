@@ -46,6 +46,9 @@ if (!function_exists('v_log')) {
 
 // Debug: get previous call
 if (!function_exists('vadu_trace')) {
+    /**
+     * @param array $trace | debug_backtrace()
+     */
     function vadu_trace($trace)
     {
         $caller = $trace[1];
