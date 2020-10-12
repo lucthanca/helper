@@ -44,9 +44,22 @@ if (!function_exists('v_log')) {
     }
 }
 
+if (!function_exists("vadu_for")) {
+    function vadu_for($arrays, $exit = true) {
+        foreach ($arrays as $item) {
+            dump($item);
+        }
+        if ($exit) {
+            exit(1);
+        }
+    }
+}
+
 // Debug: get previous call
 if (!function_exists('vadu_trace')) {
     /**
+     * Tracking previous call
+     *
      * @param array $trace | debug_backtrace()
      */
     function vadu_trace($trace)
@@ -54,8 +67,24 @@ if (!function_exists('vadu_trace')) {
         $caller = $trace[1];
         $mes = "Called by {$caller['function']}";
         if (isset($caller['class'])) {
-            $mes .= " in {$caller['class']}";
+            $mes .= " in {$caller['class']} on line {$caller['line']}";
         }
         dump($mes);
+    }
+}
+
+if (!function_exists('vadu_execution_time')) {
+    /**
+     * Execution time
+     *
+     * @param $callback
+     * @return float|string
+     */
+    function vadu_execution_time($callback)
+    {
+        $startTime = microtime(true);
+        $callback();
+        $endTime = microtime(true);
+        return ($endTime - $startTime);
     }
 }
