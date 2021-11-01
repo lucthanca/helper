@@ -1,0 +1,13 @@
+{
+    "name": "vadu/magento-helper",
+    "description": "helper function use vardumper",
+    "authors": [
+        {
+            "name": "vadu",
+            "email": "dunghv@bsscommerce.com"
+        }
+    ],
+    "require": {
+        "symfony/var-dumper": "^5.3"
+    }
+}

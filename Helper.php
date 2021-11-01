@@ -1,5 +1,5 @@
 <?php
-
+require __DIR__ . '/vendor/autoload.php';
 use Zend\Log\Logger;
 use Zend\Log\Writer\Stream;
 
