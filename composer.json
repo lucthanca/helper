@@ -7,8 +7,12 @@
             "email": "dunghv@bsscommerce.com"
         }
     ],
+    "autoload": {
+        "exclude-from-classmap": ["vendor/apache/log4php/src/main/php/layouts/LoggerLayoutHtml.php"],
+        "files": ["app/Vadu/LoggerLayoutHtml.php"]
+    },
     "require": {
         "symfony/var-dumper": "^5.3",
-        "apache/log4php": "^2.3"
+        "apache/log4php": "^2.3.0"
     }
 }

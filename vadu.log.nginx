@@ -1,0 +1,3 @@
+location ~ ^/vadu/log.html {
+    alias $MAGE_ROOT/app/Helper/var/log/vadu.html;
+}

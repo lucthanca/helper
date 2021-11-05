@@ -84,7 +84,7 @@ if (!function_exists('vadu_html')) {
      * @throws Exception
      * @author Vadu
      */
-    function vadu_html($var, ...$moreVars): void
+    function vadu_html(...$vars): void
     {
         LoggerPhp::configure(
             [
@@ -104,10 +104,13 @@ if (!function_exists('vadu_html')) {
             ]
         );
         $logger = LoggerPhp::getLogger('vaduLog');
-        $logger->info(VarDumperLogToHtml::getLogHtmlContent($var));
 
-        foreach ($moreVars as $var) {
-            $logger->info(VarDumperLogToHtml::getLogHtmlContent($var));
+        foreach ($vars as $v) {
+            if ($logContent = VarDumperLogToHtml::getLogHtmlContent($v)) {
+                $logger->info($logContent);
+            } else {
+                $logger->info('Rỗng');
+            }
         }
     }
 }
@@ -186,21 +189,25 @@ class VarDumperLogToHtml {
 
     public static function getLogHtmlContent($var): ?string
     {
+//        vadu_log($var);
         $now = new \DateTime();
         /** @psalm-suppress InvalidOperand */
         $file = __DIR__ . "/var/log/" . $now->format('Y-m-d\TH-i-s-u') . '_' . random_int(0, mt_getrandmax()) . '.html';
+//        dump($file);
         try {
             VarDumperLogToHtml::dump($var, $file);
         } catch (\Exception $e) {
+//            dd($e);
             return null;
         }
 
         if (file_exists($file)) {
             $content = file_get_contents($file);
-            unlink($file);
+             unlink($file);
             return $content;
         }
 
+//        dd(123123123);
         return null;
     }
 }
