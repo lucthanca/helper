@@ -162,16 +162,18 @@ if (!function_exists('vadu_execution_time')) {
 
 class VarDumperLogToHtml {
     /**
+     * Dump to html file
+     *
      * @throws ErrorException
      */
     public static function dump($var, $file = null): void
     {
-        static $output = null;
+        $output = null;
         $cloner        = new VarCloner();
         $dumper        = new HtmlDumper();
 
         if (null === $output) {
-            if (!$file) {
+            if ($file == null) {
                 $now = new \DateTime();
                 /** @psalm-suppress InvalidOperand */
                 $file = __DIR__ . "/var/log/" . $now->format('Y-m-d\TH-i-s-u') . '_' . random_int(0, mt_getrandmax()) . '.html';
@@ -187,17 +189,21 @@ class VarDumperLogToHtml {
         $dumper->dump($cloner->cloneVar($var), $output, []);
     }
 
+    /**
+     * Dump to html file then get content in that html after that, delete it (for log table)
+     *
+     * @param mixed $var
+     * @return string|null
+     * @throws Exception
+     */
     public static function getLogHtmlContent($var): ?string
     {
-//        vadu_log($var);
         $now = new \DateTime();
         /** @psalm-suppress InvalidOperand */
         $file = __DIR__ . "/var/log/" . $now->format('Y-m-d\TH-i-s-u') . '_' . random_int(0, mt_getrandmax()) . '.html';
-//        dump($file);
         try {
             VarDumperLogToHtml::dump($var, $file);
         } catch (\Exception $e) {
-//            dd($e);
             return null;
         }
 
@@ -207,7 +213,6 @@ class VarDumperLogToHtml {
             return $content;
         }
 
-//        dd(123123123);
         return null;
     }
 }
