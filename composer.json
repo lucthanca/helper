@@ -12,7 +12,7 @@
         "files": ["app/Vadu/LoggerLayoutHtml.php", "Helper.php"]
     },
     "require": {
-        "symfony/var-dumper": "^5.3",
+        "symfony/var-dumper": "4.1.11",
         "apache/log4php": "^2.3.0"
     }
 }
