@@ -159,6 +159,35 @@ if (!function_exists('vadu_execution_time')) {
         return ($endTime - $startTime);
     }
 }
+if (!function_exists('vdd')) {
+    function vdd(object $object, array $exceptProperties = []): void {
+        $clone = clone $object; // giữ nguyên object gốc
+        $ref   = new \ReflectionObject($clone);
+
+        foreach ($exceptProperties as $propName) {
+            if ($ref->hasProperty($propName)) {
+                $prop = $ref->getProperty($propName);
+                $prop->setAccessible(true);
+
+                // Nếu là readonly thì bỏ qua, tránh error
+                if (method_exists($prop, 'isReadOnly') && $prop->isReadOnly()) {
+                    continue;
+                }
+
+                try {
+                    $prop->setValue($clone, '**FILTERED**');
+                } catch (\Throwable $e) {
+                    // fallback: đánh dấu không thể chỉnh
+                    // (để khi dd() in ra dễ phân biệt)
+                    $prop->setAccessible(true);
+                    $prop->setValue($clone, '**FILTERED**');
+                }
+            }
+        }
+
+        dd($clone);
+    }
+}
 
 class VarDumperLogToHtml {
     /**

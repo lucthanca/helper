@@ -194,8 +194,8 @@ class LoggerLayoutHtml extends LoggerLayout {
         $sbuf .= "<body bgcolor=\"#FFFFFF\" topmargin=\"6\" leftmargin=\"6\">" . PHP_EOL;
         $sbuf .= "<hr size=\"1\" noshade>" . PHP_EOL;
 
-        setlocale(LC_TIME, "vi_VN");
-        $sbuf .= "Thời gian phiên log: " . strftime('%c', time()) . "<br>" . PHP_EOL;
+//        setlocale(LC_TIME, "vi_VN");
+//        $sbuf .= "Thời gian phiên log: " . strftime('%c', time()) . "<br>" . PHP_EOL;
 
         $sbuf .= "<br>" . PHP_EOL;
         $sbuf .= "<table cellspacing=\"0\" cellpadding=\"4\" border=\"1\"" .
